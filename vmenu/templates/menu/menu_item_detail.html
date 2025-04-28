@@ -1,0 +1,37 @@
+{% extends "menu/base.html" %}
+
+{% block title %}{{ item.name }} - Menu Item{% endblock %}
+
+{% block content %}
+<div class="menu-item-detail">
+    <h2>{{ item.name }}</h2>
+    
+    {% if item.image %}
+        <div class="item-image">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 400px;">
+        </div>
+    {% else %}
+        <div class="no-image" style="height: 300px; width: 400px; background-color: #f8f8f8; display: flex; align-items: center; justify-content: center;">
+            <span>No image available</span>
+        </div>
+    {% endif %}
+        
+        <div class="item-info">
+            <p class="price">${{ item.price }}</p>
+            <p class="category">Category: <a href="{{ item.category.get_absolute_url }}">{{ item.category.name }}</a></p>
+            
+            <div class="description">
+                <h3>Description</h3>
+                <p>{{ item.description }}</p>
+            </div>
+            
+            {% if item.is_available %}
+                <p class="availability available">Available</p>
+            {% else %}
+                <p class="availability unavailable">Currently unavailable</p>
+            {% endif %}
+        </div>
+    </div>
+    
+    <a href="{{ item.category.get_absolute_url }}" class="back-link">← Back to {{ item.category.name }}</a>
+{% endblock %}
